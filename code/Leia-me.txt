@@ -1,0 +1,6 @@
+Nesta pasta estão todos os códigos de frontEnd do trabalho 1 de Engenharia de Software.
+O backEnd está sendo desenvolvido por outra dupla no seguinte gitHub:
+https://github.com/neiva098/imobiliaria-backend.git
+
+Os protótipos de tela estão neste endereço:
+https://www.figma.com/file/6LhOnRvrxya1Upb2EiNUsH/Imobili%C3%A1ria?node-id=0%3A1

@@ -6,4 +6,5 @@ Os protótipos de tela estão neste endereço:
 https://www.figma.com/file/6LhOnRvrxya1Upb2EiNUsH/Imobili%C3%A1ria?node-id=0%3A1
 
 Dependências:
-Npm install react-router-dom 
+npm install react-router-dom
+npm install

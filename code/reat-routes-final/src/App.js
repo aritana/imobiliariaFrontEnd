@@ -1,11 +1,18 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, NavLink, Switch, Route } from 'react-router-dom';
+import React from "react";
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  NavLink,
+  Switch,
+  Route,
+} from "react-router-dom";
 
-import Usuarios from './components/Usuarios/Usuarios'
-import AdicionarUsuario from './components/AdicionarUsuario/AdicionarUsuario'
-import DetalhesUsuario from './components/DetalhesUsuario/DetalhesUsuario'
-import Home from './components/Home/Home'
+import Usuarios from "./components/Usuarios/Usuarios";
+import AdicionarUsuario from "./components/AdicionarUsuario/AdicionarUsuario";
+import DetalhesUsuario from "./components/DetalhesUsuario/DetalhesUsuario";
+import Home from "./components/Home/Home";
+import CadastrarImovel from "./components/CadastrarImovel/CadastrarImovel";
+import AgendarVisita from "./components/AgendarVisita/AgendarVisita";
 
 function App() {
   return (
@@ -15,13 +22,21 @@ function App() {
           <nav>
             <ul>
               <li>
-                <NavLink to="/" exact>Início</NavLink>
+                <NavLink to="/" exact>
+                  Início
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/usuarios">Usuários Cadastrados</NavLink>
+                <NavLink to="/adicionar">Cadastrar Usuário</NavLink>
               </li>
               <li>
-                <NavLink to="/adicionar">Adicionar Usuário</NavLink>
+                <NavLink to="/cadastrar-imovel">Cadastrar Imóvel</NavLink>
+              </li>
+              <li>
+                <NavLink to="/usuarios">Pesquisar Locatário</NavLink>
+              </li>
+              <li>
+                <NavLink to="/agendar">Agendar Visita</NavLink>
               </li>
             </ul>
           </nav>
@@ -31,14 +46,20 @@ function App() {
             <Route path="/" exact>
               <Home />
             </Route>
+            <Route path="/adicionar">
+              <AdicionarUsuario />
+            </Route>
+            <Route path="/cadastrar-imovel">
+              <CadastrarImovel />
+            </Route>
             <Route path="/usuarios/:id">
               <DetalhesUsuario />
             </Route>
             <Route path="/usuarios">
               <Usuarios />
             </Route>
-            <Route path="/adicionar">
-              <AdicionarUsuario />
+            <Route path="/agendar">
+              <AgendarVisita />
             </Route>
             <Route path="*">
               <h1>404</h1>

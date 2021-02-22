@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { CreatePropertieInterface, PropertieInterface } from '../interfaces/propertie'
+import { AuthResponse } from '../interfaces/user'
 import { clearSession } from './auth'
 
 import { setUserDataOnLocalStorage } from './auth'
@@ -25,13 +27,19 @@ privateApi.defaults.validateStatus = (status: number) => {
 }
 
 
-export const logIn = async (email: string, password: string) => {
+export const logIn = async (email: string, password: string): Promise<AuthResponse> => {
     clearSession()
 
     const apiResponse = await publicApi.post('/api/users/authenticate', { email, password })
 
     setUserDataOnLocalStorage(apiResponse.data)
     privateApi.defaults.headers.authorization = apiResponse.data.token
+
+    return apiResponse.data
+}
+
+export const createPropertie = async (propertie: CreatePropertieInterface): Promise<PropertieInterface> => {
+    const apiResponse = await privateApi.post('/api/users', propertie)
 
     return apiResponse.data
 }

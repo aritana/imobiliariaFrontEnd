@@ -17,7 +17,7 @@ const PropertieCreate = (props: { history: string[] }) => {
     return (
         <div className='container'>
             {
-                isAddressCompleted ? <AddressForm
+                !isAddressCompleted ? <AddressForm
                     handleSubmit={submitAddress}
                 /> : <PropertieForm
                         address={address!}

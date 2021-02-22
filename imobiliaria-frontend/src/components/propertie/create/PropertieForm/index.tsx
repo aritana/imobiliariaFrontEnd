@@ -70,9 +70,17 @@ const PropertieForm = (props: { history: string[], address: CreateAddressInterfa
     }
 
     function handleTypeChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const newType = event.target.checked && event.target.name ? 'apartamento' : 'casa'
+        if (event.target.name === 'apartamento') {
+            if (event.target.checked) return setType('apartamento')
 
-        setType(newType)
+            return setType('casa')
+        }
+
+        if (event.target.name === 'casa') {
+            if (event.target.checked) return setType('casa')
+
+            return setType('apartamento')
+        }
     }
 
     return (

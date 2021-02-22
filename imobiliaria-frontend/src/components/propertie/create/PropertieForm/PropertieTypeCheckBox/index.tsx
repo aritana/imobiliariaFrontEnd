@@ -14,7 +14,7 @@ const checkBoxStyles = () => ({
 
 const BlueCheckbox = withStyles(checkBoxStyles)(Checkbox)
 
-export default function (props: { isRow: boolean, type: 'casa' | 'apartamento', handleTypeChange: Function }) {
+const PropertieTypeCheckBox = (props: { isRow: boolean, type: 'casa' | 'apartamento', handleTypeChange: Function }) => {
     return (
         <FormGroup row={props.isRow}>
             <FormControlLabel className='checkBox-item'
@@ -40,3 +40,5 @@ export default function (props: { isRow: boolean, type: 'casa' | 'apartamento', 
         </FormGroup>
     )
 }
+
+export default PropertieTypeCheckBox

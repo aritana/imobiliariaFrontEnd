@@ -63,7 +63,7 @@ const PropertieForm = (props: { history: string[], address: CreateAddressInterfa
                 adress: props.address,
             })
 
-            props.history.push('/properties/list')
+            props.history.push('/propertie/list')
         } catch (e) {
             errorHandler(e)
         }
@@ -89,7 +89,7 @@ const PropertieForm = (props: { history: string[], address: CreateAddressInterfa
                 <RiHomeHeartLine size={150} className='icon' ></RiHomeHeartLine>
                 <h1>Cadastre um novo imóvel</h1>
                 <p>Para incluir um novo imóvel em sua conta necessitamos das seguintes informações.</p>
-                <Link className='back-link' to='/properties/list'>
+                <Link className='back-link' to='/propertie/list'>
                     <FiArrowLeft size={16} color='#E02041' />
                             Voltar ao portal de imóveis
                         </Link>

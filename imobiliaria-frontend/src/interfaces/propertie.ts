@@ -23,4 +23,19 @@ export interface PropertieInterface {
     owner: UserInterface;
 }
 
+export interface QueryPropertiesInterface {
+    type?: 'casa' | 'apartamento';
+    roomsAmount?: string;
+    suitesAmount?: string;
+    livingRoomsAmount?: string;
+    diningRoomsAmount?: string;
+    parkingAmount?: string;
+    builtInCabinetsAmount?: string;
+
+    logradouro?: string;
+    bairro?: string;
+    cep?: string;
+    uf?: string;
+}
+
 export type CreatePropertieInterface = Omit<PropertieInterface, 'id' | 'owner' | 'ownerId'>;

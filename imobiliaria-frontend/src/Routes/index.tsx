@@ -5,13 +5,15 @@ import React from 'react'
 import LogIn from '../pages/LogIn'
 import { PrivateRoute } from './types'
 import Home from '../pages/Home'
+import PropertieCreate from '../pages/Propertie/Create'
 
 const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
                 <Route exact path='/' component={LogIn}></Route>
-                <PrivateRoute exact path='/fiscofacil/home' Component={Home}></PrivateRoute>
+                <PrivateRoute exact path='/home' Component={Home}></PrivateRoute>
+                <PrivateRoute exact path='/propertie/create' Component={PropertieCreate}></PrivateRoute>
                 <Route exact path='/unauthorized' component={NotAuthorized} />
                 <Route component={NotFound}></Route>
             </Switch>

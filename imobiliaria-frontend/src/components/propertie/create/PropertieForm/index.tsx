@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import { FaUserAlt } from 'react-icons/fa'
+import { RiHomeHeartLine } from 'react-icons/ri'
 import { FiArrowLeft } from 'react-icons/fi'
 
 import CheckBoxs from './PropertieTypeCheckBox'
@@ -86,7 +86,7 @@ const PropertieForm = (props: { history: string[], address: CreateAddressInterfa
     return (
         <div className='form-content'>
             <section className='form-description'>
-                <FaUserAlt size={150} className='icon' ></FaUserAlt>
+                <RiHomeHeartLine size={150} className='icon' ></RiHomeHeartLine>
                 <h1>Cadastre um novo imóvel</h1>
                 <p>Para incluir um novo imóvel em sua conta necessitamos das seguintes informações.</p>
                 <Link className='back-link' to='/properties/list'>

@@ -39,7 +39,7 @@ export const logIn = async (email: string, password: string): Promise<AuthRespon
 }
 
 export const createPropertie = async (propertie: CreatePropertieInterface): Promise<PropertieInterface> => {
-    const apiResponse = await privateApi.post('/api/users', propertie)
+    const apiResponse = await privateApi.post('/api/properties', propertie)
 
     return apiResponse.data
 }

@@ -27,13 +27,13 @@ const BlueCheckbox = withStyles(checkBoxStyles)(Checkbox)
 
 const PropertieForm = (props: { history: string[], address: CreateAddressInterface }) => {
 
-    const [roomsAmount, setRoomsAmount] = useState(0)
-    const [suitesAmount, setSuitesAmount] = useState(0)
-    const [livingRoomsAmount, setLivingRoomsAmount] = useState(0)
-    const [diningRoomsAmount, setDiningRoomsAmount] = useState(0)
-    const [parkingAmount, setParkingAmount] = useState(0)
-    const [builtInCabinetsAmount, setBuiltInCabinetsAmount] = useState(0)
-    const [rentValue, setRentValue] = useState(0)
+    const [roomsAmount, setRoomsAmount] = useState<number>(undefined!)
+    const [suitesAmount, setSuitesAmount] = useState<number>(undefined!)
+    const [livingRoomsAmount, setLivingRoomsAmount] = useState<number>(undefined!)
+    const [diningRoomsAmount, setDiningRoomsAmount] = useState<number>(undefined!)
+    const [parkingAmount, setParkingAmount] = useState<number>(undefined!)
+    const [builtInCabinetsAmount, setBuiltInCabinetsAmount] = useState<number>(undefined!)
+    const [rentValue, setRentValue] = useState<number>(undefined!)
 
     const [description, setDescription] = useState('')
     const [type, setType] = useState<'casa' | 'apartamento'>('casa')

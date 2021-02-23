@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaUserAlt } from 'react-icons/fa'
+import { FaMapSigns } from 'react-icons/fa'
 import { FiArrowLeft } from 'react-icons/fi'
 
 const AddressForm = (props: { handleSubmit: Function }) => {
@@ -14,8 +14,8 @@ const AddressForm = (props: { handleSubmit: Function }) => {
     return (
         <div className='form-content'>
             <section className='form-description'>
-                <FaUserAlt size={150} className='icon' ></FaUserAlt>
-                <h1>Primeirament cadastre um novo endereço do imóvel</h1>
+                <FaMapSigns size={150} className='icon' ></FaMapSigns>
+                <h1>Primeiramente cadastre um novo endereço do imóvel</h1>
                 <p>Para incluir um novo endereço em sua conta necessitamos das seguintes informações.</p>
                 <Link className='back-link' to='/properties/list'>
                     <FiArrowLeft size={16} color='#E02041' />

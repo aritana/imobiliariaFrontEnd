@@ -3,7 +3,7 @@ import casa from "../../assets/casa.jpg";
 import Header from "../../components/Header";
 import Grid from "@material-ui/core/Grid";
 import { RiCommunityFill } from "react-icons/ri";
-import HeaderListProperties from "../../components/Header/ListProperties";
+import HeaderHomeProperties from "../../components/Header/Home";
 
 const Home = (props: { history: string[] }) => {
   const nome = JSON.parse(localStorage.getItem("@userData") || "").name;
@@ -17,7 +17,7 @@ const Home = (props: { history: string[] }) => {
       spacing={3}
     >
       <Header
-        Component={HeaderListProperties}
+        Component={HeaderHomeProperties}
         componentProps={{ history: props.history }}
       />
       <Grid

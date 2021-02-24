@@ -4,6 +4,7 @@ import Header from '../../../components/Header'
 import PropertieDetailsHeader from '../../../components/Header/DetailsPropertie'
 import DetailPropertie from '../../../components/propertie/expanded/Details'
 import ExpandedPropertieMenu from '../../../components/propertie/expanded/Menu'
+import Visit from '../../../components/propertie/expanded/Visit'
 import { PropertieInterface } from '../../../interfaces/propertie'
 import { getPropertieById } from '../../../services/api'
 
@@ -38,7 +39,10 @@ const ExpandedPropertie = (props: RouteComponentProps) => {
                 )
             case 'visit':
                 return (
-                    <div></div>
+                    <Visit
+                        history={props.history as any}
+                        propertie={propertie}
+                    />
                 )
             default:
                 return (
@@ -59,6 +63,7 @@ const ExpandedPropertie = (props: RouteComponentProps) => {
                 <ExpandedPropertieMenu
                     setService={setService}
                     service={service}
+                    propertie={propertie}
                 />
                 <div className='selected-service'>
                     {

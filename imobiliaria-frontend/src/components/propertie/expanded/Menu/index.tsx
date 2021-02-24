@@ -3,7 +3,7 @@ import { FaEdit, FaUserCheck, FaInfoCircle } from 'react-icons/fa'
 import { PropertieInterface } from '../../../../interfaces/propertie'
 import { getUserLocalStorage } from '../../../../utils/user'
 
-const ExpandedPropertieMenu = (props: { setService: React.Dispatch<React.SetStateAction<'edit' | 'details' | 'visit'>>, service: 'edit' | 'details' | 'visit' }, propertie: PropertieInterface) => {
+const ExpandedPropertieMenu = (props: { setService: React.Dispatch<React.SetStateAction<'edit' | 'details' | 'visit'>>, service: 'edit' | 'details' | 'visit', propertie: PropertieInterface }) => {
     function getStyle(service: string) {
         return props.service === service ? { backgroundColor: 'white', color: '#026A99' } : undefined
     }
@@ -15,7 +15,7 @@ const ExpandedPropertieMenu = (props: { setService: React.Dispatch<React.SetStat
                 Informações gerais
             </button>
             {
-                getUserLocalStorage().id === propertie.ownerId ?
+                getUserLocalStorage().id === props.propertie?.owner.id ?
                     <button className='detail-menu-button' style={getStyle('edit')} onClick={() => props.setService('edit')}>
                         <FaEdit className='detail-menu-button-icon' size={16} />
                         Editar dados

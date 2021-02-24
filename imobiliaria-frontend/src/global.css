@@ -300,6 +300,12 @@ form textarea {
     border: none;
 }
 
+.detail-propertie-container {
+    width: 80.0vw;
+    height: 100%;
+    background-color: white;
+}
+
 .detail-propertie-content {
     padding-left: 30px;
     padding-right: 30px;
@@ -363,6 +369,59 @@ form textarea {
 }
 
 .detail-propertie-field strong {
+    color: rgb(117, 117, 117);
+    font-size: 16px;
+}
+
+.visit-propertie-container {
+    width: 80.0vw;
+    height: 100%;
+    background-color: white;
+}
+
+.visit-propertie-container {
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.visit-propertie-data {
+    position: relative;
+    left: 0px;
+    top: 70px;
+    width: 55vw;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: space-between;
+}
+
+.visit-propertie-field {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    max-width: 200px;
+}
+
+.visit-propertie-field input {
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #00AEED;
+    padding: 0px;
+    width: 450px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-overflow: ellipsis;
+    font: 400 18px Roboto, sans-serif;
+}
+
+.visit-propertie-field strong {
     color: rgb(117, 117, 117);
     font-size: 16px;
 }

@@ -317,7 +317,7 @@ export default function EditPropertie(props: OwnProps) {
 
           props.history.push('/propertie/list')
         } catch (e) {
-          // errorHandler(e)
+          errorHandler(e)
         }
       }}>
         <FaTrash size={20} color='#00AEED'></FaTrash>

@@ -61,3 +61,10 @@ export const getPropertieById = async (id: string): Promise<PropertieInterface> 
 export const deletePropertie = async (id: string): Promise<void> => {
     await privateApi.delete(`/api/properties/${id}`)
 }
+
+export const createVisit = async (propertieId: string, dataHora: string) => {
+    await privateApi.post(`/api/visits`, {
+        propertieId,
+        dataHora
+    })
+}

@@ -51,3 +51,13 @@ export const listProperties = async (query: QueryPropertiesInterface): Promise<P
 
     return apiResponse.data
 }
+
+export const getPropertieById = async (id: string): Promise<PropertieInterface> => {
+    const apiResponse = await privateApi.get(`/api/properties/${id}`)
+
+    return apiResponse.data
+}
+
+export const deletePropertie = async (id: string): Promise<void> => {
+    await privateApi.delete(`/api/properties/${id}`)
+}

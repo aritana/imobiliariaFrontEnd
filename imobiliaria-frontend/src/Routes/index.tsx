@@ -6,6 +6,7 @@ import LogIn from '../pages/LogIn'
 import { PrivateRoute } from './types'
 import PropertieCreate from '../pages/Propertie/Create'
 import ListPropertie from '../pages/Propertie/List'
+import ExpandedPropertie from '../pages/Propertie/Expanded'
 
 const Routes = () => {
     return (
@@ -13,6 +14,7 @@ const Routes = () => {
             <Switch>
                 <Route exact path='/' component={LogIn}></Route>
                 <PrivateRoute exact path='/propertie/list' Component={ListPropertie}></PrivateRoute>
+                <PrivateRoute exact path='/propertie/details/:id' Component={ExpandedPropertie}></PrivateRoute>
                 <PrivateRoute exact path='/propertie/create' Component={PropertieCreate}></PrivateRoute>
                 <Route exact path='/unauthorized' component={NotAuthorized} />
                 <Route component={NotFound}></Route>

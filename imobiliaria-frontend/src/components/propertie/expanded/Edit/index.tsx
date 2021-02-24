@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PropertieInterface } from "../../../../interfaces/propertie";
-import { FaSave } from "react-icons/fa";
-import { updatePropertie } from "../../../../services/api";
+import { FaSave, FaTrash } from "react-icons/fa";
+import { deletePropertie, updatePropertie } from "../../../../services/api";
 import { Checkbox, FormControlLabel, FormGroup, withStyles } from "@material-ui/core";
 import PropertieTypeCheckBox from "../../create/PropertieForm/PropertieTypeCheckBox";
 import { errorHandler } from "../../../../utils/errors";
@@ -310,6 +310,18 @@ export default function EditPropertie(props: OwnProps) {
       <button className='visit-save' type='submit'>
         <FaSave size={20} color='#00AEED'></FaSave>
         <p>Salvar</p>
+      </button>
+      <button className='visit-delete' onClick={async () => {
+        try {
+          await deletePropertie(props.propertie.id!)
+
+          props.history.push('/propertie/list')
+        } catch (e) {
+          // errorHandler(e)
+        }
+      }}>
+        <FaTrash size={20} color='#00AEED'></FaTrash>
+        <p>Remover</p>
       </button>
     </form >
   ) : (

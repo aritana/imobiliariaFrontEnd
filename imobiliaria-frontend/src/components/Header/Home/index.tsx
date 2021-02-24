@@ -1,32 +1,35 @@
 import React from 'react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { Link } from 'react-router-dom'
+import { clearSession } from '../../../services/auth'
 
-const HeaderListProperties = (props: { history: string[] }) => {
+const HeaderHomeProperties = (props: { history: string[] }) => {
     return (
         <div className='menu-items'>
             <div className='group-header'>
                 <button
                     className='icon'
                     onClick={() => {
-                        props.history.push('/home')
+                        clearSession()
+
+                        props.history.push('/')
                     }}
                 >
                     <IoIosArrowBack size={18} color='#00AEED' />
-                    <p>Home</p>
+                    <p>Sair</p>
                 </button>
             </div>
             <div className='group-header'>
                 <Link
-                    className='button'
-                    to='/propertie/create'
+                    to='/propertie/list'
+                    className='link-header'
                 >
-                    Cadastrar novo imóvel
-                    </Link>
+                    <p>Lista de imóveis</p>
+                </Link>
             </div>
 
         </div>
     )
 }
 
-export default HeaderListProperties
+export default HeaderHomeProperties

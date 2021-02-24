@@ -32,7 +32,7 @@ export default function LogIn(props: { history: string[] }) {
         try {
             await logIn(email, password)
 
-            history.push('/propertie/list')
+            history.push('/home')
         } catch (e) {
             errorHandler(e)
         }

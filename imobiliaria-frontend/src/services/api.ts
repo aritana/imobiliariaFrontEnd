@@ -6,6 +6,7 @@ import {
     UpdatePropertieInterface,
 } from "../interfaces/propertie";
 import { AuthResponse } from "../interfaces/user";
+import { VisitInterface } from "../interfaces/visit";
 import { setUserDataOnLocalStorage } from "../utils/user";
 import { clearSession } from "./auth";
 
@@ -89,4 +90,18 @@ export const updatePropertie = async (
     propertie: UpdatePropertieInterface
 ): Promise<void> => {
     await privateApi.put(`/api/properties/${id}`, propertie);
+};
+
+export const getVisits = async (propertieId: string): Promise<VisitInterface[]> => {
+    const res = await privateApi.get('/api/visits', {
+        params: {
+            propertieId,
+        }
+    })
+
+    return res.data
+}
+
+export const deleteVisit = async (id: string): Promise<void> => {
+    await privateApi.delete(`/api/visits/${id}`);
 };

@@ -3,6 +3,7 @@ import { FaSave } from 'react-icons/fa'
 import { PropertieInterface } from '../../../../interfaces/propertie'
 import { createVisit } from '../../../../services/api'
 import { errorHandler } from '../../../../utils/errors'
+import VisitList from './List'
 
 interface OwnProps {
     propertie: PropertieInterface
@@ -30,11 +31,17 @@ const Visit = (props: OwnProps) => {
                         <input type='date' value={data} onChange={(e) => setData(e.target.value)} placeholder='Data' />
                     </div>
                     <div className='visit-propertie-field'>
-
                         <strong>Horario:</strong>
                         <input type='time' value={hora} onChange={(e) => {
                             if (['00', '30'].includes(e.target.value.substr(3, 2))) setHora(e.target.value)
                         }} step='1800' />
+                    </div>
+                    <div className='visit-propertie-field'>
+                        <strong>Visitas:</strong>
+                        <VisitList
+                            history={props.history}
+                            propertie={props.propertie}
+                        />
                     </div>
                 </div>
             </div>

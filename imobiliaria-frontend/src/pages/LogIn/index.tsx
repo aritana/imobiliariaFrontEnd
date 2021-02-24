@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { logIn } from '../../services/api'
 import './style.css'
 import logo from '../../assets/logotipo.png'
-import { errorHandler } from '../../utils/general'
+import { errorHandler } from '../../utils/errors'
 import { AiFillLock } from 'react-icons/ai'
 import { FaUserAlt } from 'react-icons/fa'
 

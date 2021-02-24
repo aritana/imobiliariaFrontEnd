@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { RiHomeHeartLine } from "react-icons/ri";
 import { FiArrowLeft } from "react-icons/fi";
 
-import CheckBoxs from "./PropertieTypeCheckBox";
-import { createPropertie } from "../../../../services/api";
-import { errorHandler } from "../../../../utils/general";
+
+import CheckBoxs from './PropertieTypeCheckBox'
+import { createPropertie } from '../../../../services/api'
+import { errorHandler } from '../../../../utils/errors'
 
 import Checkbox from "@material-ui/core/Checkbox";
 import { withStyles } from "@material-ui/core/styles";

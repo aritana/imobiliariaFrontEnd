@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { CreatePropertieInterface, PropertieInterface } from '../interfaces/propertie'
+import { CreatePropertieInterface, PropertieInterface, QueryPropertiesInterface } from '../interfaces/propertie'
 import { AuthResponse } from '../interfaces/user'
+import { setUserDataOnLocalStorage } from '../utils/user'
 import { clearSession } from './auth'
 
-import { setUserDataOnLocalStorage } from './auth'
 
 const baseUrl = 'http://localhost:3333'
 
@@ -42,4 +42,22 @@ export const createPropertie = async (propertie: CreatePropertieInterface): Prom
     const apiResponse = await privateApi.post('/api/properties', propertie)
 
     return apiResponse.data
+}
+
+export const listProperties = async (query: QueryPropertiesInterface): Promise<PropertieInterface[]> => {
+    const apiResponse = await privateApi.get('/api/properties', {
+        params: query,
+    })
+
+    return apiResponse.data
+}
+
+export const getPropertieById = async (id: string): Promise<PropertieInterface> => {
+    const apiResponse = await privateApi.get(`/api/properties/${id}`)
+
+    return apiResponse.data
+}
+
+export const deletePropertie = async (id: string): Promise<void> => {
+    await privateApi.delete(`/api/properties/${id}`)
 }

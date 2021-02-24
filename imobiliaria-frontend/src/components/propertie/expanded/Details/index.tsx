@@ -43,6 +43,10 @@ export default function DetailPropertie(props: OwnProps) {
                             <p>{props.propertie?.adress?.complemento}</p>
                         </div>
 
+                        <div className='detail-propertie-field'>
+                            <strong>Tipo:</strong>
+                            <p>{props.propertie?.type}</p>
+                        </div>
 
                         <div className='detail-propertie-field'>
                             <strong>Quartos:</strong>

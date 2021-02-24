@@ -39,3 +39,4 @@ export interface QueryPropertiesInterface {
 }
 
 export type CreatePropertieInterface = Omit<PropertieInterface, 'id' | 'owner' | 'ownerId'>;
+export type UpdatePropertieInterface = Partial<CreatePropertieInterface>;

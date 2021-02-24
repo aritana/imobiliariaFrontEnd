@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import { PropertieInterface } from "../../../../interfaces/propertie";
-import { AiFillSave } from "react-icons/ai";
+import { FaSave } from "react-icons/fa";
+import { updatePropertie } from "../../../../services/api";
+import { Checkbox, FormControlLabel, FormGroup, withStyles } from "@material-ui/core";
+import PropertieTypeCheckBox from "../../create/PropertieForm/PropertieTypeCheckBox";
+import { errorHandler } from "../../../../utils/errors";
+
+const checkBoxStyles = () => ({
+  root: {
+    "&$checked": {
+      color: "#00AEED",
+    },
+  },
+  checked: {},
+});
+
+const BlueCheckbox = withStyles(checkBoxStyles)(Checkbox);
 
 interface OwnProps {
   propertie: PropertieInterface;
   history: string[];
-  handleSubmit: Function;
 }
 
 export default function EditPropertie(props: OwnProps) {
@@ -37,15 +51,37 @@ export default function EditPropertie(props: OwnProps) {
   );
   const [rentValue, setRentValue] = useState(props.propertie?.rentValue);
   const [description, setDescription] = useState(props.propertie?.description);
-  const [floor, setFloor] = useState(props.propertie?.floor);
+  const [floor, setFloor] = useState(props.propertie?.floor || undefined);
   const [condominiumValue, setCondominiumValue] = useState(
-    props.propertie?.condominiumValue
+    props.propertie?.condominiumValue || undefined
+  );
+  const [fullConcierge, setFullConcierge] = useState<boolean | undefined>(
+    props.propertie.fullConcierge || undefined
   );
 
+  const [type, setType] = useState<"casa" | "apartamento">(props.propertie.type);
+
+  function handleTypeChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.name === "apartamento") {
+      if (event.target.checked) return setType("apartamento");
+
+      return setType("casa");
+    }
+
+    if (event.target.name === "casa") {
+      if (event.target.checked) return setType("casa");
+
+      return setType("apartamento");
+    }
+  }
+
+
   return props.propertie ? (
-    <form
-      onSubmit={async (e) =>
-        props.handleSubmit({
+    <form className="detail-propertie-container" onSubmit={async (e) => {
+      e.preventDefault()
+
+      try {
+        await updatePropertie(props.propertie.id!, {
           adress: { logradouro, bairro, numero, cep, uf, complemento },
           roomsAmount,
           suitesAmount,
@@ -57,199 +93,226 @@ export default function EditPropertie(props: OwnProps) {
           description,
           floor,
           condominiumValue,
-          fullConcierge: props.propertie?.fullConcierge,
-        })
+          fullConcierge: fullConcierge || false,
+        });
+      } catch (e) {
+        errorHandler(e)
       }
-    >
-      <div className="detail-propertie-container">
-        <div className="detail-propertie-content">
-          <div className="detail-propertie-data">
-            <div className="edit-propertie-field">
-              <strong>Estado:</strong>
-              <input
-                placeholder={props.propertie?.adress?.uf}
-                value={uf}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setUf(event.target.value)
-                }
-              ></input>
-            </div>
-            <button className="detail-menu-button" type="submit">
-              <AiFillSave size={40} className="icon"></AiFillSave>
-              Salvar
-            </button>
-            <div className="edit-propertie-field">
-              <strong>Bairro:</strong>
-              <input
-                placeholder={props.propertie?.adress?.bairro}
-                value={bairro}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setBairro(event.target.value)
-                }
-              ></input>
-            </div>
 
-            <div className="edit-propertie-field">
-              <strong>Cep:</strong>
-              <input
-                placeholder={props.propertie?.adress?.cep}
-                value={cep}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setCep(event.target.value)
-                }
-              ></input>
-            </div>
+      props.history.push('/propertie/list')
 
-            <div className="edit-propertie-field">
-              <strong>Logradouro:</strong>
-              <input
-                placeholder={props.propertie?.adress?.logradouro}
-                value={logradouro}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setLogradouro(event.target.value)
-                }
-              ></input>
-            </div>
+    }}>
+      <div className="detail-propertie-content">
+        <div className="detail-propertie-data">
+          <div className="edit-propertie-field">
+            <strong>Estado:</strong>
+            <input
+              placeholder={props.propertie?.adress?.uf}
+              value={uf}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setUf(event.target.value)
+              }
+            ></input>
+          </div>
+          <div className="edit-propertie-field">
+            <strong>Bairro:</strong>
+            <input
+              placeholder={props.propertie?.adress?.bairro}
+              value={bairro}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setBairro(event.target.value)
+              }
+            ></input>
+          </div>
 
-            <div className="edit-propertie-field">
-              <strong>Numero:</strong>
-              <input
-                placeholder={props.propertie?.adress?.numero}
-                value={numero}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setNumero(event.target.value)
-                }
-              ></input>
-            </div>
+          <div className="edit-propertie-field">
+            <strong>Cep:</strong>
+            <input
+              placeholder={props.propertie?.adress?.cep}
+              value={cep}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setCep(event.target.value)
+              }
+            ></input>
+          </div>
 
-            <div className="edit-propertie-field">
-              <strong>Complemento:</strong>
-              <input
-                placeholder={props.propertie?.adress?.complemento}
-                value={complemento}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setComplemento(event.target.value)
-                }
-              ></input>
-            </div>
+          <div className="edit-propertie-field">
+            <strong>Logradouro:</strong>
+            <input
+              placeholder={props.propertie?.adress?.logradouro}
+              value={logradouro}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setLogradouro(event.target.value)
+              }
+            ></input>
+          </div>
 
-            <div className="edit-propertie-field">
-              <strong>Quartos:</strong>
-              <input
-                placeholder={props.propertie?.roomsAmount.toString()}
-                value={roomsAmount}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setRoomsAmount(Number(event.target.value))
-                }
-              ></input>
-            </div>
+          <div className="edit-propertie-field">
+            <strong>Numero:</strong>
+            <input
+              placeholder={props.propertie?.adress?.numero}
+              value={numero}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setNumero(event.target.value)
+              }
+            ></input>
+          </div>
 
-            <div className="edit-propertie-field">
-              <strong>Suites:</strong>
-              <input
-                placeholder={props.propertie?.suitesAmount.toString()}
-                value={suitesAmount}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setSuitesAmount(Number(event.target.value))
-                }
-              ></input>
-            </div>
+          <div className="edit-propertie-field">
+            <strong>Complemento:</strong>
+            <input
+              placeholder={props.propertie?.adress?.complemento}
+              value={complemento}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setComplemento(event.target.value)
+              }
+            ></input>
+          </div>
 
-            <div className="edit-propertie-field">
-              <strong>Salas de jantar:</strong>
-              <input
-                placeholder={props.propertie?.diningRoomsAmount.toString()}
-                value={diningRoomsAmount}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setDiningRoomsAmount(Number(event.target.value))
-                }
-              ></input>
-            </div>
+          <div className="edit-propertie-field">
+            <strong>Quartos:</strong>
+            <input
+              placeholder={props.propertie?.roomsAmount.toString()}
+              value={roomsAmount}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setRoomsAmount(Number(event.target.value))
+              }
+            ></input>
+          </div>
 
-            <div className="edit-propertie-field">
-              <strong>Salas de jantar:</strong>
-              <input
-                placeholder={props.propertie?.livingRoomsAmount.toString()}
-                value={livingRoomsAmount}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setLivingRoomsAmount(Number(event.target.value))
-                }
-              ></input>
-            </div>
+          <div className="edit-propertie-field">
+            <strong>Suites:</strong>
+            <input
+              placeholder={props.propertie?.suitesAmount.toString()}
+              value={suitesAmount}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setSuitesAmount(Number(event.target.value))
+              }
+            ></input>
+          </div>
 
-            <div className="edit-propertie-field">
-              <strong>Vagas:</strong>
-              <input
-                placeholder={props.propertie?.parkingAmount.toString()}
-                value={parkingAmount}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setParkingAmount(Number(event.target.value))
-                }
-              ></input>
-            </div>
+          <div className="edit-propertie-field">
+            <strong>Salas de jantar:</strong>
+            <input
+              placeholder={props.propertie?.diningRoomsAmount.toString()}
+              value={diningRoomsAmount}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setDiningRoomsAmount(Number(event.target.value))
+              }
+            ></input>
+          </div>
 
-            <div className="edit-propertie-field">
-              <strong>Armarios embutidos:</strong>
-              <input
-                placeholder={props.propertie?.builtInCabinetsAmount.toString()}
-                value={builtInCabinetsAmount}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setBuiltInCabinetsAmount(Number(event.target.value))
-                }
-              ></input>
-            </div>
+          <div className="edit-propertie-field">
+            <strong>Salas de jantar:</strong>
+            <input
+              placeholder={props.propertie?.livingRoomsAmount.toString()}
+              value={livingRoomsAmount}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setLivingRoomsAmount(Number(event.target.value))
+              }
+            ></input>
+          </div>
 
-            <div className="edit-propertie-field">
-              <strong>Descrição:</strong>
-              <input
-                placeholder={props.propertie?.description}
-                value={description}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setDescription(event.target.value)
-                }
-              ></input>
-            </div>
+          <div className="edit-propertie-field">
+            <strong>Vagas:</strong>
+            <input
+              placeholder={props.propertie?.parkingAmount.toString()}
+              value={parkingAmount}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setParkingAmount(Number(event.target.value))
+              }
+            ></input>
+          </div>
 
-            {props.propertie?.type === "apartamento" && (
-              <div>
-                <div className="edit-propertie-field">
-                  <strong>Andar:</strong>
-                  <input
-                    placeholder={props.propertie?.floor!.toString()}
-                    value={floor}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      setFloor(Number(event.target.value))
-                    }
-                  ></input>
-                </div>
-                <div className="edit-propertie-field">
-                  <strong>Valor do condominio:</strong>
-                  <input
-                    placeholder={props.propertie?.condominiumValue!.toString()}
-                    value={condominiumValue}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      setCondominiumValue(Number(event.target.value))
-                    }
-                  ></input>
-                </div>
+          <div className="edit-propertie-field">
+            <strong>Armarios embutidos:</strong>
+            <input
+              placeholder={props.propertie?.builtInCabinetsAmount.toString()}
+              value={builtInCabinetsAmount}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setBuiltInCabinetsAmount(Number(event.target.value))
+              }
+            ></input>
+          </div>
+
+          <div className="edit-propertie-field">
+            <strong>Descrição:</strong>
+            <input
+              placeholder={props.propertie?.description}
+              value={description}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setDescription(event.target.value)
+              }
+            ></input>
+          </div>
+
+          <div className="edit-propertie-field">
+            <strong>Tipo de imóvel:</strong>
+            <PropertieTypeCheckBox
+              handleTypeChange={handleTypeChange}
+              isRow={true}
+              type={type}
+            />
+          </div>
+
+          {type === "apartamento" && (
+            <div>
+              <div className="edit-propertie-field">
+                <strong>Andar:</strong>
+                <input
+                  placeholder={props.propertie?.floor?.toString() || ''}
+                  value={floor}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setFloor(Number(event.target.value))
+                  }
+                ></input>
               </div>
-            )}
-
-            <div className="edit-propertie-field">
-              <strong>Aluguel:</strong>
-              <input
-                placeholder={`R$${props.propertie?.rentValue.toFixed(2)}`}
-                value={rentValue}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setRentValue(Number(event.target.value))
-                }
-              ></input>
+              <div className="edit-propertie-field">
+                <strong>Valor do condominio:</strong>
+                <input
+                  placeholder={props.propertie?.condominiumValue?.toString() || ''}
+                  value={condominiumValue}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setCondominiumValue(Number(event.target.value))
+                  }
+                ></input>
+              </div>
+              <FormGroup row={true}>
+                <FormControlLabel
+                  className="checkBox-item"
+                  control={
+                    <BlueCheckbox
+                      checked={fullConcierge}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        setFullConcierge(!(fullConcierge || false))
+                      }
+                      name="fullConcierge"
+                    />
+                  }
+                  label={<label>Porteiro 24 horas</label>}
+                />
+              </FormGroup>
             </div>
+          )}
+
+          <div className="edit-propertie-field">
+            <strong>Aluguel:</strong>
+            <input
+              placeholder={`R$${props.propertie?.rentValue.toFixed(2)}`}
+              value={rentValue}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setRentValue(Number(event.target.value))
+              }
+            ></input>
           </div>
         </div>
       </div>
-    </form>
+      <button className='visit-save' type='submit'>
+        <FaSave size={20} color='#00AEED'></FaSave>
+        <p>Salvar</p>
+      </button>
+    </form >
   ) : (
-    <div />
-  );
+      <div />
+    );
 }

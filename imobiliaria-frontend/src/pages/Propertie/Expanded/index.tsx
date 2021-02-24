@@ -7,14 +7,13 @@ import ExpandedPropertieMenu from "../../../components/propertie/expanded/Menu";
 import Visit from "../../../components/propertie/expanded/Visit";
 import Edit from "../../../components/propertie/expanded/Edit";
 import { PropertieInterface } from "../../../interfaces/propertie";
-import { getPropertieById, updatePropertie } from "../../../services/api";
+import { getPropertieById } from "../../../services/api";
 
 const ExpandedPropertie = (props: RouteComponentProps) => {
   const [propertie, setPropertie] = useState<PropertieInterface>(undefined!);
   const [service, setService] = useState<"edit" | "details" | "visit">(
     "details"
   );
-  const { id }: any = props.match.params;
   useEffect(() => {
     async function findPropertie() {
       const { id }: any = props.match.params;
@@ -25,10 +24,6 @@ const ExpandedPropertie = (props: RouteComponentProps) => {
     findPropertie();
   }, [props.match.params, service]);
 
-  async function handleUpdateSubmit(propertieUpdated: PropertieInterface) {
-    updatePropertie(id, propertieUpdated);
-  }
-
   function getSelectedComponent() {
     switch (service) {
       case "edit":
@@ -36,9 +31,6 @@ const ExpandedPropertie = (props: RouteComponentProps) => {
           <Edit
             history={props.history as any}
             propertie={propertie}
-            handleSubmit={(propertieUpdated: PropertieInterface) =>
-              handleUpdateSubmit(propertieUpdated)
-            }
           />
         );
       case "details":
